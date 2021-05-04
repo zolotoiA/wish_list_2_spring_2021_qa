@@ -7,6 +7,16 @@
     <groupId>org.example</groupId>
     <artifactId>wish_list_2_spring_2021_qa</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <webdrivermanager.version>4.4.1</webdrivermanager.version>
+        <junit-jupiter-engine.version>5.7.0</junit-jupiter-engine.version>
+        <selenium.version>3.141.59</selenium.version>
+        <hamcrest-library.version>2.2</hamcrest-library.version>
+        <junit-jupiter-params.version>5.7.0</junit-jupiter-params.version>
+        <junit-jupiter-api.version>5.7.0</junit-jupiter-api.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -20,36 +30,35 @@
             <version>4.4.1</version>
             <scope>compile</scope>
         </dependency>
-                <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <version>${hamcrest-library.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter-engine.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit-jupiter-params.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-jupiter-api.version}</version>
             <scope>compile</scope>
         </dependency>
-
-
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <webdrivermanager.version>4.4.1</webdrivermanager.version>
-        <junit.version>4.12</junit.version>
-        <selenium.version>3.141.59</selenium.version>
-
-    </properties>
 
 </project>
