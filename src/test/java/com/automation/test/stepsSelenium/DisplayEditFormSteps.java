@@ -14,32 +14,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @Log4j2
 public class DisplayEditFormSteps {
 
-    private MainDashboardPage dashboardPage = new MainDashboardPage(getDriver());
-    private LandingPage landingPage = new LandingPage(getDriver());
+    private final MainDashboardPage dashboardPage = new MainDashboardPage(getDriver());
+    private final LandingPage landingPage = new LandingPage(getDriver());
 
     @Given("Navigate to wishlist page")
     public void wishlistPageIsAccessed() {
         getDriver().get(PropertiesFileReader.getProperty("urlUI"));
     }
 
-    @When("Customer click on login button from header panel")
-    public void customerClickOnLoginButton() {
-        landingPage.clickLogin();
-    }
-
     @When("Customer input login credentials")
     public void loginFormIsPopulated() throws InterruptedException {
         landingPage.userLogin("caramba@mail.ru", "usernamebl1");
-    }
-
-    @Then("Customer click login button")
-    public void clickToLoginButton() {
-        landingPage.getLoginFormComponent().getLoginFormButton().click();
-        landingPage.waitPageOrElement();
-        assertAll(
-                () -> assertTrue(landingPage.getLoginFormComponent().isDisplayed()),
-                () -> assertEquals("Login", landingPage.getLandingPageLoginBtn().getText())
-        );
     }
 
     @Then("user is redirected to main dashboard page")
