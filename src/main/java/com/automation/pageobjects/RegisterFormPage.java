@@ -1,5 +1,6 @@
 package com.automation.pageobjects;
 
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@Getter
 public class RegisterFormPage {
 
     @FindBy(css = ".MuiFormControl-root.MuiTextField-root > div.MuiInput-root.MuiInputBase-root > input[maxlength=\"50\"]")
@@ -70,29 +72,6 @@ public class RegisterFormPage {
     @FindBy(css = ".login-btn")
     private WebElement loginButton;
 
-    public WebElement getRegisterUserPopUp() {
-        return registerUserPopUp;
-    }
-
-    public WebElement getFullNameLbl() {
-        return fullNameLbl;
-    }
-
-    public WebElement getEmailLbl() {
-        return emailLbl;
-    }
-
-    public WebElement getPasswordLbl() {
-        return passwordLbl;
-    }
-
-    public WebElement getConfirmPasswordLbl() {
-        return confirmPasswordLbl;
-    }
-
-    public WebElement getLoginButton() {
-        return loginButton;
-    }
 
     public RegisterFormPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -126,57 +105,5 @@ public class RegisterFormPage {
     public void checkRegisterFormDisplaying(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".form-title")));
-    }
-
-    public WebElement getFullName() {
-        return fullName;
-    }
-
-    public WebElement getEmailAddress() {
-        return emailAddress;
-    }
-
-    public WebElement getPassword() {
-        return password;
-    }
-
-    public WebElement getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public WebElement getRegisterButton() {
-        return registerButton;
-    }
-
-    public WebElement getRegisterButtonFromHeader() {
-        return registerButtonFromHeader;
-    }
-
-    public WebElement getFullNameError() {
-        return fullNameError;
-    }
-
-    public WebElement getEmailError() {
-        return emailError;
-    }
-
-    public WebElement getPasswordEmptyError() {
-        return passwordEmptyError;
-    }
-
-    public WebElement getPasswordToShortError() {
-        return passwordToShortError;
-    }
-
-    public WebElement getConfirmPasswordError() {
-        return confirmPasswordError;
-    }
-
-    public WebElement getEmailExistingError() {
-        return emailExistingError;
-    }
-
-    public WebElement getPasswordWithSpaceError() {
-        return passwordWithSpaceError;
     }
 }

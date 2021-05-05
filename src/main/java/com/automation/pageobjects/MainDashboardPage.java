@@ -1,5 +1,6 @@
 package com.automation.pageobjects;
 
+import lombok.Getter;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -20,7 +21,7 @@ public class MainDashboardPage extends HtmlElement {
 
     public CardComponent getCardByTitle(String card) {
         return listOfCardItems.stream()
-                .filter(e -> e.getItemCardTitle().equals(card))
+                .filter(e -> e.getItemCardTitle().getText().equals(card))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No such card found"));
     }

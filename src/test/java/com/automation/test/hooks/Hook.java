@@ -17,7 +17,7 @@ import static com.automation.utils.TakeScreenShot.reportDir;
 
 @Log4j2
 public class Hook extends ChooseOfWebDriver {
-    Scenario scenario;
+   public Scenario scenario;
 
     @Before
     public void beforeStep(Scenario scenario) throws IOException {

@@ -36,8 +36,7 @@ public class AbilityToRegisterStepsApi extends RestApiSetUp {
     @When("Customer enters valid{string}, {string}, {string}, {string} and click register")
     public void registerCustomerTest(String fullName, String email, String pass, String confPass) {
         String authToken = "";
-        RegisterUserDTO userDTO = RegisterUserDTO
-                .builder()
+        RegisterUserDTO userDTO = RegisterUserDTO.builder()
                 .fullName(fullName)
                 .username(email)
                 .password(pass)

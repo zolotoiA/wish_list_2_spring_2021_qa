@@ -36,8 +36,7 @@ public class AbilityToLoginLogoutAPI extends RestApiSetUp {
 
     @When("user enters valid {} and {}")
     public void userLogin(String email, String password) {
-        LoginUserDTO userDTO = LoginUserDTO
-                .builder()
+        LoginUserDTO userDTO = LoginUserDTO.builder()
                 .username(email)
                 .password(password)
                 .build();
