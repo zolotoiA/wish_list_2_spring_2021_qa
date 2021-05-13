@@ -20,6 +20,7 @@
         <org.apache.logging.log4j.version>2.14.1</org.apache.logging.log4j.version>
         <junit.params.version>5.7.0</junit.params.version>
         <hamcrest.version>2.2</hamcrest.version>
+        <rest-version>4.3.0</rest-version>
     </properties>
 
     <dependencies>
@@ -110,6 +111,13 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <version>${junit.params.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-version}</version>
             <scope>test</scope>
         </dependency>
 
