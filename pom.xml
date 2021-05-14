@@ -21,6 +21,7 @@
         <junit.params.version>5.7.0</junit.params.version>
         <hamcrest.version>2.2</hamcrest.version>
         <rest-version>4.3.0</rest-version>
+        <ru.yandex.qatools.htmlelements.version>1.20.0</ru.yandex.qatools.htmlelements.version>
     </properties>
 
     <dependencies>
@@ -45,6 +46,12 @@
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.yandex.qatools.htmlelements</groupId>
+            <artifactId>htmlelements-all</artifactId>
+            <version>${ru.yandex.qatools.htmlelements.version}</version>
         </dependency>
 
         <dependency>
