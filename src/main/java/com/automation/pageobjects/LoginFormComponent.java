@@ -20,4 +20,13 @@ public class LoginFormComponent extends HtmlElement {
 
     @FindBy(css = "#login-btn")
     private WebElement loginFormButton;
+
+    @FindBy(css = "#login-email-input-helper-text")
+    private WebElement loginFieldErrorMsg;
+
+    @FindBy(css = "div[class='MuiFormControl-root jss107'] p[class='MuiFormHelperText-root Mui-error Mui-required']")
+    private WebElement passwordFieldErrorMsg;
+
+    @FindBy(xpath = "//p[normalize-space()='Wrong email or password']")
+    private WebElement emailOrPasswordErrMsg;
 }

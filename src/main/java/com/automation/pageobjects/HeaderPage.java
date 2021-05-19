@@ -10,7 +10,7 @@ public class HeaderPage {
 
     private WebDriver driver;
     @FindBy(css = ".nav-greeting")
-    static WebElement welcomeText;
+    private WebElement welcomeText;
     @FindBy(css = ".nav-title")
     private WebElement welcomeTitle;
     @FindBy(css = ".primary-btn ")
@@ -25,9 +25,9 @@ public class HeaderPage {
     private WebElement logOutButton;
 
 
-    public HeaderPage (WebDriver driver) {
-        this. driver = driver;
-        PageFactory.initElements(driver,this);
+    public HeaderPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public WebElement getNewWishlistButton() {
@@ -46,11 +46,11 @@ public class HeaderPage {
         return avatarIcon;
     }
 
-    public  String getWelcomeText() {
-       return welcomeText.getText();
+    public WebElement getWelcomeText() {
+        return welcomeText;
     }
 
-    public  String getWelcomeTitle() {
-        return welcomeTitle.getText();
+    public WebElement getWelcomeTitle() {
+        return welcomeTitle;
     }
 }
