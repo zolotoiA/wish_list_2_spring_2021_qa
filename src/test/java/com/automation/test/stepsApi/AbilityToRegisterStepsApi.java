@@ -3,7 +3,6 @@ package com.automation.test.stepsApi;
 import com.automation.context.ScenarioContext;
 import com.automation.dto.RegisterUserDTO;
 import com.automation.test.restapi.config.RestApiSetUp;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
@@ -33,11 +32,6 @@ public class AbilityToRegisterStepsApi extends RestApiSetUp {
 
     ScenarioContext scenarioContext = ScenarioContext.getInstance();
     public static String invalidToken = "";
-
-    @Before
-    public static void setUp() {
-        setUpRestAssured();
-    }
 
     @When("Customer enters valid{string}, {string}, {string}, {string} and click register")
     public void registerCustomerTest(String fullName, String email, String pass, String confPass) {
@@ -125,5 +119,4 @@ public class AbilityToRegisterStepsApi extends RestApiSetUp {
                 () -> assertEquals(postResponse.getStatusCode(), HttpStatus.SC_BAD_REQUEST, ASSERT_EQUALS.getMessage())
         );
     }
-
 }
