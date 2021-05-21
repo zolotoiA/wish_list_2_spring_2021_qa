@@ -49,6 +49,7 @@ public class ChooseOfWebDriver {
     public static void quitDriver() {
         driver.close();
         driver.quit();
+        driver = null;
         log.info("Quit WebDriver");
     }
 
