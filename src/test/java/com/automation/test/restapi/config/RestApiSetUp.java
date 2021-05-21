@@ -9,7 +9,7 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 
 public class RestApiSetUp {
-     public static void setUpRestAssured(){
+    public static void setUpRestAssured() {
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder()
                 .setBaseUri(PropertiesFileReader.getProperty("urlBE"))
                 .setContentType(ContentType.JSON)

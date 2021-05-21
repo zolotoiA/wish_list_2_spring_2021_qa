@@ -20,7 +20,7 @@ Feature: Wishlist Test Feature
 #                                                    Email address with boundary min and max
       | Bob                                                | a@b                                      | 12345678                  | 12345678                  |
       | Bob                                                | 1123aaaaaaaaaa22222222222222240@gmail.da | 1111111111111111111111111 | 1111111111111111111111111 |
-#                                                                                                    Password with boundary min and max
+#                                                                                                   Password with boundary min and max
       | Bob                                                | 2@gm                                     | Aa3$56789                 | Aa3$56789                 |
       | Bob                                                | 3@gm                                     | 1111111111111111111111125 | 1111111111111111111111125 |
 

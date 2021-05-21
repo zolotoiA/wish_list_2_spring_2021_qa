@@ -119,5 +119,4 @@ public class AbilityToRegisterStepsApi extends RestApiSetUp {
                 () -> assertEquals(postResponse.getStatusCode(), HttpStatus.SC_BAD_REQUEST, ASSERT_EQUALS.getMessage())
         );
     }
-
 }
