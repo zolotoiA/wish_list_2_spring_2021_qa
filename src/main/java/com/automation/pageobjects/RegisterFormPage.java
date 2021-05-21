@@ -49,6 +49,48 @@ public class RegisterFormPage {
     @FindBy(xpath = "//p[normalize-space()='Passwords do not match']")
     private WebElement confirmPasswordError;
 
+    @FindBy(css = ".wishlist-form")
+    private WebElement registerUserPopUp;
+
+    @FindBy(xpath = "//*[contains(text(),'Full Name')]")
+    private WebElement fullNameLbl;
+
+    @FindBy(xpath = "//*[contains(text(),'Email')]")
+    private WebElement emailLbl;
+
+    @FindBy(xpath = "//*[contains(text(),'Password')]")
+    private WebElement passwordLbl;
+
+    @FindBy(xpath = "//*[contains(text(),'Confirm Password')]")
+    private WebElement confirmPasswordLbl;
+
+    @FindBy(css = ".login-btn")
+    private WebElement loginButton;
+
+    public WebElement getRegisterUserPopUp() {
+        return registerUserPopUp;
+    }
+
+    public WebElement getFullNameLbl() {
+        return fullNameLbl;
+    }
+
+    public WebElement getEmailLbl() {
+        return emailLbl;
+    }
+
+    public WebElement getPasswordLbl() {
+        return passwordLbl;
+    }
+
+    public WebElement getConfirmPasswordLbl() {
+        return confirmPasswordLbl;
+    }
+
+    public WebElement getLoginButton() {
+        return loginButton;
+    }
+
     public RegisterFormPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
