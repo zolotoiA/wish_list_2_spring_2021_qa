@@ -2,6 +2,7 @@ package com.automation.test.restapi.enums;
 
 public enum AssertionDescription {
     ASSERT_EQUALS("assertEquals failed"),
+    ASSERT_THAT("assertThat failed"),
     ASSERT_WITH_TIME("assertTrue failed. Response time is Not Within Limit");
     private final String message;
 
