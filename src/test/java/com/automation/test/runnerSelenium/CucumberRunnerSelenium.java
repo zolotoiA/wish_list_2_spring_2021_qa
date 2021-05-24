@@ -9,8 +9,7 @@ import org.junit.runner.RunWith;
         plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         features = {"src/test/resources/featuresSelenium/"},
         glue = {"com.automation.test.stepsSelenium", "com.automation.test.hooks"},
-        stepNotifications = true,
-        tags = "@PositiveScenario"
+        stepNotifications = true
         )
 public class CucumberRunnerSelenium {
 
