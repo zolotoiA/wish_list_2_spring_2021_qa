@@ -1,4 +1,4 @@
-Feature: Displaying of the Register Form
+Feature: Display register form
 
   @MDDIP006-10878 @RegisterFormDisplaying @mcerchez
   Scenario: Registration pop-up

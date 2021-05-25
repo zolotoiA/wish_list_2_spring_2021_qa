@@ -56,7 +56,17 @@ public class LoginLogoutSteps {
 
     @Then("user gets error messages displayed {string}")
     public void userGetsErrorMessagesDisplayedWrongEmailPasswordMessage(String fieldErrorMessage) throws InterruptedException {
-        landingPage.getLoginFormItems().getEmailOrPasswordErrMsg().getText().equals(fieldErrorMessage);
+        switch (fieldErrorMessage) {
+            case "Please enter a valid email address":
+                assertEquals(fieldErrorMessage, landingPage.getLoginFormItems().getLoginFieldErrorMsg().getText());
+                break;
+            case "Please enter a password":
+                assertEquals(fieldErrorMessage, landingPage.getLoginFormItems().getPasswordFieldErrorMsg().getText());
+                break;
+            case "The password contains white spaces":
+                assertEquals(fieldErrorMessage, landingPage.getLoginFormItems().getPasswordWhiteSpaceError().getText());
+                break;
+        }
     }
 
     @Given("user enters spaces instead of valid credentials in {string},{string} fields")

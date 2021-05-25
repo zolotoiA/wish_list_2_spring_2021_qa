@@ -28,7 +28,7 @@ public class LoginFormSteps {
         );
     }
 
-    @Then("{} is displayed")
+    @Then("{} is displayed to user")
     public void loginFormIsTriggered(String item) {
         switch (item) {
             case "Login form":

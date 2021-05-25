@@ -1,4 +1,4 @@
-Feature: Wishlist Test Feature
+Feature: Ability to register API
 
   @MDDIP006-10105 @AbilityToRegister @rsoh
   Scenario Outline: Check register new customer with valid data
@@ -6,7 +6,7 @@ Feature: Wishlist Test Feature
     Then Customer should be created and logged in the system
     Examples:
       | fullName | emailAddress       | password | confirmPassword |
-      | Kris     | diddads@mail.ru | password | password        |
+      | Kris     | didddads@mail.ru | password | password        |
 
 
   @MDDIP006-10105 @AbilityToRegister @rsoh

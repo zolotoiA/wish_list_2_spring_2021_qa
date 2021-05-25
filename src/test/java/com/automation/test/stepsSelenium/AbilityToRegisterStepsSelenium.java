@@ -7,8 +7,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +16,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @Log4j2
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AbilityToRegisterStepsSelenium extends ChooseOfWebDriver {
 
     RegisterFormPage registerFormPage = new RegisterFormPage(getDriver());
@@ -83,8 +80,11 @@ public class AbilityToRegisterStepsSelenium extends ChooseOfWebDriver {
             case "The password is too short":
                 assertThat(ASSERT_THAT.getMessage(), errorMessage, is(equalTo(registerFormPage.getPasswordToShortError().getText())));
                 break;
-            case "Passwords do not match ":
+            case "Passwords do not match":
                 assertThat(ASSERT_THAT.getMessage(), errorMessage, is(equalTo(registerFormPage.getConfirmPasswordError().getText())));
+                break;
+            case "The password contains white spaces":
+                assertThat(ASSERT_THAT.getMessage(), errorMessage, is(equalTo(registerFormPage.getPasswordWithSpaceError().getText())));
                 break;
         }
     }
