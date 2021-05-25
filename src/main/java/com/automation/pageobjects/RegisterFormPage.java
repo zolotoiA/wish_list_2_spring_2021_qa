@@ -43,6 +43,9 @@ public class RegisterFormPage {
     @FindBy(xpath = "//p[normalize-space()='Please enter a password']")
     private WebElement passwordEmptyError;
 
+    @FindBy(xpath = "//p[normalize-space()='The password contains white spaces']")
+    private WebElement passwordWithSpaceError;
+
     @FindBy(xpath = "//p[normalize-space()='The password is too short']")
     private WebElement passwordToShortError;
 
@@ -124,7 +127,7 @@ public class RegisterFormPage {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".form-title")));
     }
-    
+
     public WebElement getFullName() {
         return fullName;
     }
@@ -171,5 +174,9 @@ public class RegisterFormPage {
 
     public WebElement getEmailExistingError() {
         return emailExistingError;
+    }
+
+    public WebElement getPasswordWithSpaceError() {
+        return passwordWithSpaceError;
     }
 }

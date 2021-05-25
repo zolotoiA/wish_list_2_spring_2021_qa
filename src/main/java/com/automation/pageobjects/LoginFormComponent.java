@@ -29,4 +29,7 @@ public class LoginFormComponent extends HtmlElement {
 
     @FindBy(xpath = "//p[normalize-space()='Wrong email or password']")
     private WebElement emailOrPasswordErrMsg;
+
+    @FindBy(xpath = "//p[normalize-space()='The password contains white spaces']")
+    private WebElement passwordWhiteSpaceError;
 }

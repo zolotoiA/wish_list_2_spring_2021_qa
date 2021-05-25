@@ -4,7 +4,7 @@ Feature: Ability to log in/log out
   Background:
     Given user is on landing page
     When user clicks Login button
-    Then Login form is displayed
+    Then Login form is displayed to user
 
   @PositiveScenario
   Scenario Outline: User login with existing data
@@ -41,6 +41,7 @@ Feature: Ability to log in/log out
     When user clicks Login button on login form
     Then user gets error messages displayed '<wrongEmailPasswordMessage>'
     Examples:
-      | email             | password      | wrongEmailPasswordMessage |
-      | j      @email.com | johndoemaster | Wrong email or password   |
-      | johndoe@email.com |               | Wrong email or password   |
+      | email             | password      | wrongEmailPasswordMessage          |
+      | j      @email.com | johndoemaster | Please enter a valid email address |
+      | johndoe@email.com |               | Wrong email or password            |
+      | johndoe@email.com | da    dsad    | The password contains white spaces |

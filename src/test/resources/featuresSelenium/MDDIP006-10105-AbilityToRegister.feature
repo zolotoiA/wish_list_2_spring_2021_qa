@@ -1,4 +1,4 @@
-Feature: Wishlist Test Feature
+Feature: Ability to register
 
   Background:
     Given Wishlist page is accessed
@@ -13,16 +13,16 @@ Feature: Wishlist Test Feature
     Examples:
       | fullName                                           | emailAddress                             | password                  | confirmPassword           |
 #   Successfully flow
-      | John Isner                                         | 1    23@gmail.com                        | 123456789                 | 123456789                 |
+      | John Isner                                         | 1e2aqaw23@gmail.com                       | 123456789                 | 123456789                 |
 #   fullName with boundary min and maximum
-      | J                                                  | 1123@gmail.da                            | 12345678                  | 12345678                  |
-      | AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA | 11123@gmail.da                           | 12345678                  | 12345678                  |
+      | J                                                  | 112aqa23@gmail.da                         | 12345678                  | 12345678                  |
+      | AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA | 11aa2q123@gmail.da                        | 12345678                  | 12345678                  |
 #                                                    Email address with boundary min and max
-      | Bob                                                | a@b                                      | 12345678                  | 12345678                  |
-      | Bob                                                | 1123aaaaaaaaaa22222222222222240@gmail.da | 1111111111111111111111111 | 1111111111111111111111111 |
+      | Bob                                                | a3aq@dbas.com                             | 12345678                  | 12345678                  |
+      | Bob                                                | 1a123aagaaa2dad22g2222222222240@gmail.da | 1111111111111111111111111 | 1111111111111111111111111 |
 #                                                                                                   Password with boundary min and max
-      | Bob                                                | 2@gm                                     | Aa3$56789                 | Aa3$56789                 |
-      | Bob                                                | 3@gm                                     | 1111111111111111111111125 | 1111111111111111111111125 |
+      | Bob                                                | 1@db.om                                   | Aa3$56789                 | Aa3$56789                 |
+      | Bob                                                | 13d@b.om2                                 | 1111111111111111111111125 | 1111111111111111111111125 |
 
 
   @MDDIP006-10105 @AbilityToRegister @rsoh
@@ -31,18 +31,21 @@ Feature: Wishlist Test Feature
     When Clicking on Register button
     Then Error should be displayed "<errorMessage>"
     Examples:
-      | fullName          | emailAddress   | password  | confirmPassword | errorMessage                                 |
+      | fullName          | emailAddress   | password       | confirmPassword | errorMessage                                 |
 #                         Not unique email address
-      | John Isner Junior | a@mail.ru      | 123456789 | 123456789       | There is an existing account with this email |
+      | John Isner Junior | a@mail.ru      | 123456789      | 123456789       | There is an existing account with this email |
 #        fullName empty
-      |                   | 1234@gmail.com | 123456789 | 123456789       | Please enter a full name                     |
+      |                   | 1234@gmail.com | 123456789      | 123456789       | Please enter a full name                     |
 #                     email negative
-      | Boby              | @a             | 12345678  | 12345678        | Please enter a valid email address           |
-      | Boby              | 1@aaa          | 12345678  | 12345678        | Please enter a valid email address           |
+      | Boby              | @a             | 12345678       | 12345678        | Please enter a valid email address           |
+      | Boby              | 1@aaa          | 12345678       | 12345678        | Please enter a valid email address           |
 #                                         password short negative
-      |                   | 33@gmail.com   | 1234567   | 1234567         | The password is too short                    |
+      |                   | 33@gmail.com   | 1234567        | 1234567         | The password is too short                    |
 #                                         password empty negative
-      |                   | 33@gmail.com   |           | 1234567         | Please enter a password                      |
+      |                   | 33@gmail.com   |                | 1234567         | Please enter a password                      |
 #                                              passwords do not confirm
-      | Boby              | 333@gmail.com  | 12345678  | 111111111111    | Passwords do not match                       |
+      | Boby              | 333@gmail.com  | 12345678       | 111111111111    | Passwords do not match                       |
+#                                                     passwords with spaces
+      | Boby              | 333@gmail.com  | 123       8    | 123       8     | The password contains white spaces           |
+      | Boby              | 333@gmail.com  | 12321312312321 | 123       8     | The password contains white spaces           |
 

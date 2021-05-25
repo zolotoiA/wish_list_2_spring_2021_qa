@@ -12,7 +12,7 @@ public class CardComponent extends HtmlElement {
     @FindBy(css = ".card h1")
     private WebElement itemCardTitle;
 
-    @FindBy(css = ".primary-btn")
+    @FindBy(className = "primary-btn")
     private WebElement addButton;
 
     @FindBy(css = ".grey-btn")
