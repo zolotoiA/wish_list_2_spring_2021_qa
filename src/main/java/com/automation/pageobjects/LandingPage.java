@@ -18,8 +18,17 @@ public class LandingPage extends HtmlElement {
     private WebDriver driver;
     private List<LoginFormComponent> loginFormComponents;
 
-    @FindBy(css = ".login-btn")
+    @FindBy(className = "login-btn")
     private WebElement landingPageLoginBtn;
+
+    @FindBy(className = "register-btn")
+    private WebElement registerButton;
+
+    @FindBy(className = "header")
+    private WebElement header;
+
+    @FindBy(className = "footer")
+    private WebElement footer;
 
     public LandingPage(WebDriver driver) {
         this.driver = driver;
@@ -32,12 +41,32 @@ public class LandingPage extends HtmlElement {
                 .orElseThrow(() -> new NoSuchElementException("No such element found"));
     }
 
-    public void genericLogin(String email, String password){
+    public void genericLogin(String email, String password) {
         getLoginFormItems().getEmailField().sendKeys(email);
         getLoginFormItems().getPasswordField().sendKeys(password);
     }
 
-    public void waitMaindashboardPage(){
+    public void waitMaindashboardPage() {
         getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    }
+
+    public boolean headerDisplayed() {
+        return getHeader().isDisplayed();
+    }
+
+    public boolean footerDisplayed() {
+        return getFooter().isDisplayed();
+    }
+
+    public boolean registerButtonDisplayed() {
+        return getRegisterButton().isDisplayed();
+    }
+
+    public boolean loginButtonDisplayed() {
+        return getLandingPageLoginBtn().isDisplayed();
+    }
+
+    public void clickRegister() {
+        getRegisterButton().click();
     }
 }
