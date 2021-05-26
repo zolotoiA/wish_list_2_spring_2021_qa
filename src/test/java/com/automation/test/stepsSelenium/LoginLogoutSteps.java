@@ -1,6 +1,6 @@
 package com.automation.test.stepsSelenium;
 
-import com.automation.pageobjects.HeaderPage;
+import com.automation.pageobjects.HeaderComponent;
 import com.automation.pageobjects.LandingPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginLogoutSteps {
     LandingPage landingPage = new LandingPage(getDriver());
-    HeaderPage headerPage = new HeaderPage(getDriver());
+    HeaderComponent headerPage = new HeaderComponent(getDriver());
 
     @Given("user enters valid data in {string} and {string} field")
     public void enterValidData(String email, String pass) {
