@@ -21,6 +21,8 @@ import static com.automation.test.restapi.enums.AssertionDescription.ASSERT_EQUA
 import static com.automation.test.restapi.enums.AssertionDescription.ASSERT_THAT;
 import static com.automation.test.restapi.service.ApiService.getRequestLoggedPath;
 import static com.automation.test.restapi.service.ApiService.postRequestRegisterPath;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.apache.hc.core5.http.HttpStatus.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -30,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Log4j2
 public class AbilityToRegisterStepsApi extends RestApiSetUp {
 
-    ScenarioContext scenarioContext = ScenarioContext.getInstance();
-    public static String invalidToken = "";
+    private ScenarioContext scenarioContext = ScenarioContext.getInstance();
+    private static String invalidToken = "";
 
     @When("Customer enters valid{string}, {string}, {string}, {string} and click register")
     public void registerCustomerTest(String fullName, String email, String pass, String confPass) {
@@ -42,13 +44,13 @@ public class AbilityToRegisterStepsApi extends RestApiSetUp {
                 .password(pass)
                 .confirmPassword(confPass)
                 .build();
-        scenarioContext.setData(RESPONSE_POST.getMessage(), postRequestRegisterPath(userDTO));
-        scenarioContext.setData(FULLNAME.getMessage(), fullName);
-        Response response = (Response) scenarioContext.getData("response");
-        log.info("Response time is : {}", response.getTimeIn(TimeUnit.MILLISECONDS));
+        scenarioContext.setData(RESPONSE_POST, postRequestRegisterPath(userDTO));
+        scenarioContext.setData(FULLNAME, fullName);
+        Response response = (Response) scenarioContext.getData(RESPONSE_POST);
+        log.info("Response time is : {}", response.getTimeIn(MILLISECONDS));
 
         authToken = response.path("jwt").toString();
-        scenarioContext.setData(AUTH_TOKEN.getMessage(), authToken);
+        scenarioContext.setData(AUTH_TOKEN, authToken);
         log.info("Extracted Token is  : {}", authToken);
 
     }
@@ -56,16 +58,16 @@ public class AbilityToRegisterStepsApi extends RestApiSetUp {
     @Then("Customer should be created and logged in the system")
     public void checkLoggedInRegisteredUser() {
         Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "Bearer " + scenarioContext.getData(AUTH_TOKEN.getMessage()));
-        scenarioContext.setData(GET_REQUEST.getMessage(), getRequestLoggedPath(headers));
+        headers.put("Authorization", "Bearer " + scenarioContext.getData(AUTH_TOKEN));
+        scenarioContext.setData(GET_REQUEST, getRequestLoggedPath(headers));
 
-        Response getResponse = (Response) scenarioContext.getData("get");
-        Response postResponse = (Response) scenarioContext.getData("response");
-        log.info("Response time is : {}", getResponse.getTimeIn(TimeUnit.MILLISECONDS));
+        Response getResponse = (Response) scenarioContext.getData(GET_REQUEST);
+        Response postResponse = (Response) scenarioContext.getData(RESPONSE_POST);
+        log.info("Response time is : {}", getResponse.getTimeIn(MILLISECONDS));
         assertAll(
-                () -> assertEquals(postResponse.getStatusCode(), HttpStatus.SC_CREATED, ASSERT_EQUALS.getMessage()),
-                () -> assertThat(ASSERT_THAT.getMessage(), postResponse.jsonPath().get("fullName"), is(equalTo(scenarioContext.getData(FULLNAME.getMessage())))),
-                () -> assertEquals(getResponse.getStatusCode(), HttpStatus.SC_OK, ASSERT_EQUALS.getMessage())
+                () -> assertEquals(postResponse.getStatusCode(), SC_CREATED, ASSERT_EQUALS.getMessage()),
+                () -> assertThat(ASSERT_THAT.getMessage(), postResponse.jsonPath().get("fullName"), is(equalTo(scenarioContext.getData(FULLNAME)))),
+                () -> assertEquals(getResponse.getStatusCode(), SC_OK, ASSERT_EQUALS.getMessage())
         );
     }
 
@@ -78,23 +80,23 @@ public class AbilityToRegisterStepsApi extends RestApiSetUp {
                 .password(pass)
                 .confirmPassword(confPass)
                 .build();
-        scenarioContext.setData(RESPONSE_POST.getMessage(), postRequestRegisterPath(userDTO));
-        scenarioContext.setData(FULLNAME.getMessage(), fullName);
-        Response postResponse = (Response) scenarioContext.getData("response");
-        log.info("Response time is : {}", postResponse.getTimeIn(TimeUnit.MILLISECONDS));
+        scenarioContext.setData(RESPONSE_POST, postRequestRegisterPath(userDTO));
+        scenarioContext.setData(FULLNAME, fullName);
+        Response postResponse = (Response) scenarioContext.getData(RESPONSE_POST);
+        log.info("Response time is : {}", postResponse.getTimeIn(MILLISECONDS));
     }
 
     @Then("Error message is displayed")
     public void checkErrorMessageWithStatusCode() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + invalidToken);
-        scenarioContext.setData(GET_REQUEST.getMessage(), getRequestLoggedPath(headers));
-        Response getResponse = (Response) scenarioContext.getData("get");
-        Response postResponse = (Response) scenarioContext.getData("response");
-        log.info("Response time is : {}", getResponse.getTimeIn(TimeUnit.MILLISECONDS));
+        scenarioContext.setData(GET_REQUEST, getRequestLoggedPath(headers));
+        Response getResponse = (Response) scenarioContext.getData(GET_REQUEST);
+        Response postResponse = (Response) scenarioContext.getData(RESPONSE_POST);
+        log.info("Response time is : {}", getResponse.getTimeIn(MILLISECONDS));
         assertAll(
-                () -> assertEquals(postResponse.getStatusCode(), HttpStatus.SC_CONFLICT, ASSERT_EQUALS.getMessage()),
-                () -> assertEquals(getResponse.getStatusCode(), HttpStatus.SC_UNAUTHORIZED, ASSERT_EQUALS.getMessage())
+                () -> assertEquals(postResponse.getStatusCode(), SC_CONFLICT, ASSERT_EQUALS.getMessage()),
+                () -> assertEquals(getResponse.getStatusCode(), SC_UNAUTHORIZED, ASSERT_EQUALS.getMessage())
         );
     }
 
@@ -107,15 +109,15 @@ public class AbilityToRegisterStepsApi extends RestApiSetUp {
                 .password(pass)
                 .confirmPassword(confPass)
                 .build();
-        scenarioContext.setData(RESPONSE_POST.getMessage(), postRequestRegisterPath(userDTO));
+        scenarioContext.setData(RESPONSE_POST, postRequestRegisterPath(userDTO));
     }
 
     @Then("Customer account is not registered")
     public void errorMessageWithBadRequestIsDisplayed() {
-        Response postResponse = (Response) scenarioContext.getData("response");
-        log.info("Response time is : {}", postResponse.getTimeIn(TimeUnit.MILLISECONDS));
+        Response postResponse = (Response) scenarioContext.getData(RESPONSE_POST);
+        log.info("Response time is : {}", postResponse.getTimeIn(MILLISECONDS));
         assertAll(
-                () -> assertEquals(postResponse.getStatusCode(), HttpStatus.SC_BAD_REQUEST, ASSERT_EQUALS.getMessage())
+                () -> assertEquals(postResponse.getStatusCode(), SC_BAD_REQUEST, ASSERT_EQUALS.getMessage())
         );
     }
 }

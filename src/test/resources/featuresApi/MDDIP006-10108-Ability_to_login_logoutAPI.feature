@@ -6,10 +6,10 @@ Feature: Ability to login/logout API
     When user enters valid <email> and <password>
     Then user should be logged in his account with <wishlists> displayed
     Examples:
-      | email                       | password          | wishlists  |
-      | johndoe@email.com           | johndoemaster     | [550, 551] |
-      | steve.robinson06#@gmail.com | stevedabest967#@$ | []         |
-      | edward.1992@mail.ri         | CUsERcaRinct      | [577]      |
+      | email                       | password          | wishlists |
+      | johndoe@email.com           | johndoemaster     | id=550    |
+      | steve.robinson06#@gmail.com | stevedabest967#@$ |           |
+      | edward.1992@mail.ri         | CUsERcaRinct      | id=577    |
 
   @NegativeScenario
   Scenario Outline: Login with wrong credentials API

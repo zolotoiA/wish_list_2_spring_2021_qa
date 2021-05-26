@@ -3,26 +3,26 @@ Feature: Ability to register
   Background:
     Given Wishlist page is accessed
     When Customer click on Register button from header panel
-    Then Register form is displayed
+    Then Register form is displayed to customer
 
   @MDDIP006-10105 @AbilityToRegister @rsoh
   Scenario Outline: Check possibility to register new customer with valid data
     Given Customer enters valid"<fullName>", "<emailAddress>", "<password>", "<confirmPassword>"
     When Clicking on Register button
-    Then Customer should be created and logged in
+    Then Customer should get notification with confirmation email
     Examples:
       | fullName                                           | emailAddress                             | password                  | confirmPassword           |
 #   Successfully flow
-      | John Isner                                         | 1e2aqaw23@gmail.com                       | 123456789                 | 123456789                 |
+      | John Isner                                         | 1e2adqaw23@gmail.com                       | 123456789                 | 123456789                 |
 #   fullName with boundary min and maximum
-      | J                                                  | 112aqa23@gmail.da                         | 12345678                  | 12345678                  |
-      | AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA | 11aa2q123@gmail.da                        | 12345678                  | 12345678                  |
+      | J                                                  | 112asqa23@gmail.da                         | 12345678                  | 12345678                  |
+      | AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA | 11aaf2q123@gmail.da                        | 12345678                  | 12345678                  |
 #                                                    Email address with boundary min and max
-      | Bob                                                | a3aq@dbas.com                             | 12345678                  | 12345678                  |
-      | Bob                                                | 1a123aagaaa2dad22g2222222222240@gmail.da | 1111111111111111111111111 | 1111111111111111111111111 |
+      | Bob                                                | a3aaq@dbas.com                             | 12345678                  | 12345678                  |
+      | Bob                                                | 1a123sdaagaaa2dad22g2222222222240@gmail.da | 1111111111111111111111111 | 1111111111111111111111111 |
 #                                                                                                   Password with boundary min and max
-      | Bob                                                | 1@db.om                                   | Aa3$56789                 | Aa3$56789                 |
-      | Bob                                                | 13d@b.om2                                 | 1111111111111111111111125 | 1111111111111111111111125 |
+      | Bob                                                | 1a@db.om                                   | Aa3$56789                 | Aa3$56789                 |
+      | Bob                                                | 1d3d@b.om2                                 | 1111111111111111111111125 | 1111111111111111111111125 |
 
 
   @MDDIP006-10105 @AbilityToRegister @rsoh

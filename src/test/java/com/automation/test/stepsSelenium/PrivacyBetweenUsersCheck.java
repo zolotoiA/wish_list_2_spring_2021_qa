@@ -1,6 +1,8 @@
 package com.automation.test.stepsSelenium;
 
 import com.automation.actions.AccessTheWebsiteAction;
+import com.automation.components.NewWishlistFormComponent;
+import com.automation.components.RegisterFormComponent;
 import com.automation.pageobjects.*;
 
 import io.cucumber.java.en.And;
@@ -14,27 +16,28 @@ import static com.automation.utils.ChooseOfWebDriver.getDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PrivacyBetweenUsersCheck {
-    MainDashboardPage dashboard = new MainDashboardPage(getDriver());
-    RegisterFormPage registerFormPage = new RegisterFormPage(getDriver());
-    AccessTheWebsiteAction action = new AccessTheWebsiteAction();
+    private MainDashboardPage dashboard = new MainDashboardPage(getDriver());
+    private LandingPage landingPage = new LandingPage(getDriver());
+    private AccessTheWebsiteAction action = new AccessTheWebsiteAction();
 
     @Given("New User is created")
     public void newUserIsCreated() {
         Random rand = new Random();
         int random = rand.nextInt(1000);
         action.accessTheWebsite();
-        registerFormPage.getRegisterButtonFromHeader().click();
-        registerFormPage.checkRegisterFormDisplaying(getDriver());
-        registerFormPage.enterFullName("Test");
-        registerFormPage.enterEmailAddress("email" + random + "@test.com");
-        registerFormPage.enterPassword("password");
-        registerFormPage.enterConfirmPassword("password");
-        registerFormPage.getRegisterButton().click();
+        landingPage.clickRegister();
+        landingPage.isRegisterFormDisplayed();
+        landingPage.getRegisterFormComponent().enterFullName("Test");
+        landingPage.getRegisterFormComponent().enterEmailAddress("email" + random + "@test.com");
+        landingPage.getRegisterFormComponent().enterPassword("password");
+        landingPage.getRegisterFormComponent().enterConfirmPassword("password");
+        landingPage.getRegisterFormComponent().getRegisterButton().click();
     }
 
     @And("User is logged in")
     public void userIsLoggedIn() {
-        registerFormPage.checkLoggedIn(getDriver());
+        //landingPage.getRegisterFormComponent().checkLoggedIn(getDriver());
+        landingPage.headerItems.getWelcomeTitle().isDisplayed();
     }
 
     @Given("No Wishlists are seen at the Main Dashboard")
@@ -44,11 +47,10 @@ public class PrivacyBetweenUsersCheck {
 
     @When("User Creates one new Wishlist")
     public void userCreatesOneNewWishlist() {
-        NewWishlistFormPage wishlist = new NewWishlistFormPage(getDriver());
         dashboard.getNewWishlistButton().click();
-        wishlist.inputTitle("Test");
-        wishlist.inputType("Wedding");
-        wishlist.clickSaveButton();
+        dashboard.getNewWishlistFormComponent().inputTitle("Test");
+        dashboard.getNewWishlistFormComponent().inputType("Wedding");
+        dashboard.getNewWishlistFormComponent().clickSaveButton();
     }
 
     @And("Only one Wishlist is seen at the Main Dashboard")
@@ -58,7 +60,7 @@ public class PrivacyBetweenUsersCheck {
 
     @And("User logs out")
     public void userLogsOut() {
-        dashboard.getLogoutButton().click();
+        dashboard.headerItems.getLogoutButton().click();
     }
 
     @And("User logs into another account")
@@ -66,14 +68,14 @@ public class PrivacyBetweenUsersCheck {
         Random rand = new Random();
         int random = rand.nextInt(1000);
         action.accessTheWebsite();
-        registerFormPage.getRegisterButtonFromHeader().click();
-        registerFormPage.checkRegisterFormDisplaying(getDriver());
-        registerFormPage.enterFullName("Test");
-        registerFormPage.enterEmailAddress("email" + random + "@test.com");
-        registerFormPage.enterPassword("password");
-        registerFormPage.enterConfirmPassword("password");
-        registerFormPage.getRegisterButton().click();
-        registerFormPage.checkLoggedIn(getDriver());
+        landingPage.getRegisterFormComponent().getRegisterButtonFromHeader().click();
+        landingPage.isRegisterFormDisplayed();
+        landingPage.getRegisterFormComponent().enterFullName("Test");
+        landingPage.getRegisterFormComponent().enterEmailAddress("email" + random + "@test.com");
+        landingPage.getRegisterFormComponent().enterPassword("password");
+        landingPage.getRegisterFormComponent().enterConfirmPassword("password");
+        landingPage.getRegisterFormComponent().getRegisterButton().click();
+        landingPage.waitPageOrElement();
     }
 
     @Then("No Wishlists is seen at the Main Dashboard")

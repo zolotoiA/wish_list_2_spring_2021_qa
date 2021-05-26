@@ -2,17 +2,20 @@ package com.automation.test.stepsSelenium;
 
 import com.automation.pageobjects.LandingPage;
 import com.automation.propertyreader.PropertiesFileReader;
+import com.automation.utils.ChooseOfWebDriver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.NoSuchElementException;
 
 import static com.automation.utils.ChooseOfWebDriver.getDriver;
 import static org.junit.jupiter.api.Assertions.*;
-
-public class LoginFormSteps {
-    LandingPage landingPage = new LandingPage(getDriver());
+@Log4j2
+public class LoginFormSteps{
+    private LandingPage landingPage = new LandingPage(getDriver());
 
     @Given("user is on landing page")
     public void userIsOnLandingPage() {
@@ -21,10 +24,10 @@ public class LoginFormSteps {
 
     @When("user clicks Login button")
     public void userClicksLoginButton() {
-        landingPage.getLandingPageLoginBtn().click();
+        landingPage.clickLogin();
         assertAll(
-                () -> assertTrue(landingPage.getLoginFormItems().isDisplayed()),
-                () -> assertEquals("Login", landingPage.getLandingPageLoginBtn().getText())
+                () -> assertTrue(landingPage.getLoginFormComponent().isDisplayed()),
+                () -> assertEquals("Login", landingPage.loginGetText())
         );
     }
 
@@ -32,16 +35,16 @@ public class LoginFormSteps {
     public void loginFormIsTriggered(String item) {
         switch (item) {
             case "Login form":
-                assertEquals("Login", landingPage.getLoginFormItems().getLoginFormTitle().getText());
+                assertEquals("Login", landingPage.getLoginFormComponent().getLoginFormTitle().getText());
                 break;
             case "Email field":
-                assertTrue(landingPage.getLoginFormItems().getEmailField().isDisplayed());
+                assertTrue(landingPage.getLoginFormComponent().getEmailField().isDisplayed());
                 break;
             case "Password field":
-                assertTrue(landingPage.getLoginFormItems().getPasswordField().isDisplayed());
+                assertTrue(landingPage.getLoginFormComponent().getPasswordField().isDisplayed());
                 break;
             case "Login button":
-                assertTrue(landingPage.getLoginFormItems().getLoginFormButton().isDisplayed());
+                assertTrue(landingPage.getLoginFormComponent().getLoginFormButton().isDisplayed());
                 break;
             default:
                 throw new NoSuchElementException();

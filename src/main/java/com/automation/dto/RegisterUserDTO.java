@@ -10,5 +10,4 @@ public class RegisterUserDTO {
     private final String username;
     private final String password;
     private final String confirmPassword;
-
 }

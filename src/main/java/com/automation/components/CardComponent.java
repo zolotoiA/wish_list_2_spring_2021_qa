@@ -1,11 +1,13 @@
-package com.automation.pageobjects;
+package com.automation.components;
 
+import com.automation.pageobjects.AbstractPage;
 import lombok.Getter;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
-@Getter
 
+@Getter
 @FindBy(className = "card")
 public class CardComponent extends HtmlElement {
 
@@ -15,11 +17,13 @@ public class CardComponent extends HtmlElement {
     @FindBy(className = "primary-btn")
     private WebElement addButton;
 
-    @FindBy(css = ".grey-btn")
+    @FindBy(className = "grey-btn")
     private WebElement editButton;
 
-    @FindBy(css = ".card-delete-btn")
+    @FindBy(className = "card-delete-btn")
     private WebElement deleteButton;
 
-
+    public String getItemCardTitle(){
+        return itemCardTitle.getText();
+    }
 }

@@ -10,6 +10,7 @@ import static com.automation.utils.ChooseOfWebDriver.getDriver;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MainPageElementsCheck extends RestApiSetUp {
+    private LandingPage landingPage = new LandingPage(getDriver());
 
     @Given("The Landing page is accessed")
     public void theLandingPageIsAccessed() {
@@ -19,7 +20,6 @@ public class MainPageElementsCheck extends RestApiSetUp {
 
     @Then("Header, footer, Register and Login buttons are displayed")
     public void headerFooterRegisterAndLoginButtonsAreDisplayed() {
-        LandingPage landingPage = new LandingPage(getDriver());
         assertAll(
                 () -> assertTrue(landingPage.footerDisplayed()),
                 () -> assertTrue(landingPage.headerDisplayed()),

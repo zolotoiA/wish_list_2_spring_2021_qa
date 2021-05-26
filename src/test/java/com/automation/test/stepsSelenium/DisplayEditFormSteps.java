@@ -6,7 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.Assertions;
+
 import static com.automation.utils.ChooseOfWebDriver.getDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,10 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Log4j2
 public class DisplayEditFormSteps {
 
-    HeaderComponent headerPage = new HeaderComponent(getDriver());
-    MainDashboardPage dashboardPage = new MainDashboardPage(getDriver());
-    EditFormComponent editFormElement = new EditFormComponent(getDriver());
-    LandingPage landingPage = new LandingPage(getDriver());
+    private MainDashboardPage dashboardPage = new MainDashboardPage(getDriver());
+    private LandingPage landingPage = new LandingPage(getDriver());
 
     @Given("Navigate to wishlist page")
     public void wishlistPageIsAccessed() {
@@ -26,51 +24,51 @@ public class DisplayEditFormSteps {
 
     @When("Customer click on login button from header panel")
     public void customerClickOnLoginButton() {
-        landingPage.getLandingPageLoginBtn().click();
+        landingPage.clickLogin();
     }
 
     @When("Customer input login credentials")
     public void loginFormIsPopulated() throws InterruptedException {
-        landingPage.genericLogin("caramba@mail.ru", "usernamebl1");
+        landingPage.userLogin("caramba@mail.ru", "usernamebl1");
     }
 
     @Then("Customer click login button")
     public void clickToLoginButton() {
-        landingPage.getLoginFormItems().getLoginFormButton().click();
-        landingPage.waitMaindashboardPage();
+        landingPage.getLoginFormComponent().getLoginFormButton().click();
+        landingPage.waitPageOrElement();
         assertAll(
-                () -> assertTrue(landingPage.getLoginFormItems().isDisplayed()),
+                () -> assertTrue(landingPage.getLoginFormComponent().isDisplayed()),
                 () -> assertEquals("Login", landingPage.getLandingPageLoginBtn().getText())
         );
     }
 
     @Then("user is redirected to main dashboard page")
     public void mainDashboardIsDisplayed() {
-        assertEquals("Welcome back, username", headerPage.getWelcomeText().getText());
+        assertEquals("Welcome back, username", dashboardPage.headerItems.getWelcomeText().getText());
     }
 
     @Given("Customer click to edit button")
     public void clickEditButton() {
-        dashboardPage.getCardByTitle("ANATOLII").getEditButton().click();
+        dashboardPage.getExistingWishlistByTitle("ANATOLII").getEditButton().click();
     }
 
     @When("Edit popup is present")
     public void checkAllElementIsPresent() {
-        editFormElement.waitEditFormElement();
-        assertThat("When button is clicked", editFormElement.getWishlistHeaderTitle().isDisplayed());
+        dashboardPage.getEditFormComponent().waitEditFormElement();
+        assertThat("When button is clicked", dashboardPage.getEditFormComponent().getWishlistHeaderTitle().isDisplayed());
     }
 
     @Then("All element is present")
     public void allElementISPresent() {
-       editFormElement.waitEditFormElement();
-        Assertions.assertAll("All element should be displayed",
-                () -> assertTrue(editFormElement.getTitleLabel().isDisplayed()),
-                () -> assertTrue(editFormElement.getTitleField().isDisplayed()),
-                () -> assertTrue(editFormElement.getTextField().isDisplayed()),
-                () -> assertTrue(editFormElement.getTypeLabel().isDisplayed()),
-                () -> assertTrue(editFormElement.getDescriptionLabel().isDisplayed()),
-                () -> assertTrue(editFormElement.getDateLabel().isDisplayed()),
-                () -> assertTrue(editFormElement.getPrivacyLabel().isDisplayed()),
-                () -> assertTrue(editFormElement.getSaveChangesButton().isDisplayed()));
+        dashboardPage.getEditFormComponent().waitEditFormElement();
+        assertAll("All element should be displayed",
+                () -> assertTrue(dashboardPage.getEditFormComponent().getTitleLabel().isDisplayed()),
+                () -> assertTrue(dashboardPage.getEditFormComponent().getTitleField().isDisplayed()),
+                () -> assertTrue(dashboardPage.getEditFormComponent().getTextField().isDisplayed()),
+                () -> assertTrue(dashboardPage.getEditFormComponent().getTypeLabel().isDisplayed()),
+                () -> assertTrue(dashboardPage.getEditFormComponent().getDescriptionLabel().isDisplayed()),
+                () -> assertTrue(dashboardPage.getEditFormComponent().getDateLabel().isDisplayed()),
+                () -> assertTrue(dashboardPage.getEditFormComponent().getPrivacyLabel().isDisplayed()),
+                () -> assertTrue(dashboardPage.getEditFormComponent().getSaveChangesButton().isDisplayed()));
     }
 }

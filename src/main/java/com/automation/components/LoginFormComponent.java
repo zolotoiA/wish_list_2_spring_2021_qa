@@ -1,15 +1,16 @@
-package com.automation.pageobjects;
+package com.automation.components;
 
 import lombok.Getter;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
+
 @Getter
 @FindBy(css = ".login-form")
 public class LoginFormComponent extends HtmlElement {
 
-    @FindBy(css = ".form-title")
+    @FindBy(className = "form-title")
     private WebElement loginFormTitle;
 
     @FindBy(css = "#login-email-input")
