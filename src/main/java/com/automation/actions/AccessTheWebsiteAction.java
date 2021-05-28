@@ -17,20 +17,20 @@ public class AccessTheWebsiteAction {
     public void performRequest(String request) {
         switch (request) {
             case "GET":
-                context.setData(RESPONSE_POST.getMessage(), given().get(PropertiesFileReader.getProperty("urlUI")));
+                context.setData(RESPONSE_POST, given().get(PropertiesFileReader.getProperty("urlUI")));
             case "POST":
-                context.setData(RESPONSE_POST.getMessage(), given().post(PropertiesFileReader.getProperty("urlUI")));
+                context.setData(RESPONSE_POST, given().post(PropertiesFileReader.getProperty("urlUI")));
             case "PUT":
-                context.setData(RESPONSE_POST.getMessage(), given().put(PropertiesFileReader.getProperty("urlUI")));
+                context.setData(RESPONSE_POST, given().put(PropertiesFileReader.getProperty("urlUI")));
             case "DELETE":
-                context.setData(RESPONSE_POST.getMessage(), given().delete(PropertiesFileReader.getProperty("urlUI")));
+                context.setData(RESPONSE_POST, given().delete(PropertiesFileReader.getProperty("urlUI")));
             default:
                 System.out.println("Unknown request");
         }
     }
 
     public int requestStatusCode() {
-        Response response = (Response) context.getData(RESPONSE_POST.getMessage());
+        Response response = (Response) context.getData(RESPONSE_POST);
         return response.getStatusCode();
     }
 

@@ -1,16 +1,16 @@
-package com.automation.pageobjects;
+package com.automation.components;
 
 import lombok.Getter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 @Getter
-public class RegisterFormPage {
+@FindBy(css = ".form-container.register-form")
+public class RegisterFormComponent extends HtmlElement {
+
+    @FindBy(className = "register-form")
+    private WebElement regFormTitle;
 
     @FindBy(css = ".MuiFormControl-root.MuiTextField-root > div.MuiInput-root.MuiInputBase-root > input[maxlength=\"50\"]")
     private WebElement fullName;
@@ -54,7 +54,7 @@ public class RegisterFormPage {
     @FindBy(xpath = "//p[normalize-space()='Passwords do not match']")
     private WebElement confirmPasswordError;
 
-    @FindBy(css = ".wishlist-form")
+    @FindBy(css = ".form-title")
     private WebElement registerUserPopUp;
 
     @FindBy(xpath = "//*[contains(text(),'Full Name')]")
@@ -71,11 +71,6 @@ public class RegisterFormPage {
 
     @FindBy(css = ".login-btn")
     private WebElement loginButton;
-
-
-    public RegisterFormPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-    }
 
     public void enterFullName(String username) {
         fullName.clear();
@@ -95,15 +90,5 @@ public class RegisterFormPage {
     public void enterConfirmPassword(String confirmPass) {
         confirmPassword.clear();
         confirmPassword.sendKeys(confirmPass);
-    }
-
-    public void checkLoggedIn(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".nav-greeting")));
-    }
-
-    public void checkRegisterFormDisplaying(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".form-title")));
     }
 }

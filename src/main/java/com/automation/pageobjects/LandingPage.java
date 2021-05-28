@@ -1,22 +1,16 @@
 package com.automation.pageobjects;
 
+import com.automation.components.LoginFormComponent;
+import com.automation.components.RegisterFormComponent;
 import lombok.Getter;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import ru.yandex.qatools.htmlelements.element.HtmlElement;
-import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
-import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Getter
-public class LandingPage extends HtmlElement {
-    private WebDriver driver;
-    private List<LoginFormComponent> loginFormComponents;
+public class LandingPage extends AbstractPage {
+    private LoginFormComponent loginFormComponent;
+    private RegisterFormComponent registerFormComponent;
 
     @FindBy(className = "login-btn")
     private WebElement landingPageLoginBtn;
@@ -24,49 +18,50 @@ public class LandingPage extends HtmlElement {
     @FindBy(className = "register-btn")
     private WebElement registerButton;
 
-    @FindBy(className = "header")
+    @FindBy(tagName = "header")
     private WebElement header;
 
     @FindBy(className = "footer")
     private WebElement footer;
 
     public LandingPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
+        super(driver);
     }
 
-    public LoginFormComponent getLoginFormItems() {
-        return loginFormComponents.stream()
-                .findAny()
-                .orElseThrow(() -> new NoSuchElementException("No such element found"));
-    }
-
-    public void genericLogin(String email, String password) {
-        getLoginFormItems().getEmailField().sendKeys(email);
-        getLoginFormItems().getPasswordField().sendKeys(password);
-    }
-
-    public void waitMaindashboardPage() {
-        getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    public void userLogin(String email, String password) {
+        loginFormComponent.getEmailField().sendKeys(email);
+        loginFormComponent.getPasswordField().sendKeys(password);
     }
 
     public boolean headerDisplayed() {
-        return getHeader().isDisplayed();
+        return header.isDisplayed();
     }
 
     public boolean footerDisplayed() {
-        return getFooter().isDisplayed();
-    }
-
-    public boolean registerButtonDisplayed() {
-        return getRegisterButton().isDisplayed();
+        return footer.isDisplayed();
     }
 
     public boolean loginButtonDisplayed() {
-        return getLandingPageLoginBtn().isDisplayed();
+        return landingPageLoginBtn.isDisplayed();
+    }
+
+    public boolean registerButtonDisplayed() {
+        return registerButton.isDisplayed();
     }
 
     public void clickRegister() {
-        getRegisterButton().click();
+        registerButton.click();
+    }
+
+    public boolean isRegisterFormDisplayed() {
+        return registerFormComponent.isDisplayed();
+    }
+
+    public void clickLogin() {
+        landingPageLoginBtn.click();
+    }
+
+    public String loginGetText() {
+        return landingPageLoginBtn.getText();
     }
 }

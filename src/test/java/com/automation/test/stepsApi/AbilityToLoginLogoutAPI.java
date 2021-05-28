@@ -23,16 +23,13 @@ import static org.apache.hc.core5.http.HttpStatus.SC_BAD_REQUEST;
 import static org.apache.hc.core5.http.HttpStatus.SC_OK;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Log4j2
 public class AbilityToLoginLogoutAPI extends RestApiSetUp {
-    ScenarioContext scenarioContext = ScenarioContext.getInstance();
-
-    private String authToken = "";
+    private ScenarioContext scenarioContext = ScenarioContext.getInstance();
 
     @When("user enters valid {} and {}")
     public void userLogin(String email, String password) {
@@ -40,28 +37,28 @@ public class AbilityToLoginLogoutAPI extends RestApiSetUp {
                 .username(email)
                 .password(password)
                 .build();
-        scenarioContext.setData(RESPONSE_POST.getMessage(), postRequestLoginPath(userDTO));
-        Response response = (Response) scenarioContext.getData("response");
+        scenarioContext.setData(RESPONSE_POST, postRequestLoginPath(userDTO));
+        Response response = (Response) scenarioContext.getData(RESPONSE_POST);
         log.info("Response time is : {}", response.getTimeIn(MILLISECONDS));
 
-        authToken = response.path("jwt").toString();
-        scenarioContext.setData(AUTH_TOKEN.getMessage(), authToken);
+        String authToken = response.path("jwt").toString();
+        scenarioContext.setData(AUTH_TOKEN, authToken);
         log.info("Extracted Token is  : {}", authToken);
     }
 
     @Then("user should be logged in his account with {} displayed")
     public void userShouldBeLoggedInHisAccountWithWishlistsDisplayed(String wishlist) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "Bearer " + scenarioContext.getData(AUTH_TOKEN.getMessage()));
-        scenarioContext.setData(GET_REQUEST.getMessage(), getRequestLoggedPath(headers));
+        headers.put("Authorization", "Bearer " + scenarioContext.getData(AUTH_TOKEN));
+        scenarioContext.setData(GET_REQUEST, getRequestLoggedPath(headers));
 
-        scenarioContext.setData(WISHLIST_ID.getMessage(), wishlist);
+        scenarioContext.setData(WISHLIST_ID, wishlist);
 
-        Response getResponse = (Response) scenarioContext.getData("get");
-        Response postResponse = (Response) scenarioContext.getData("response");
+        Response getResponse = (Response) scenarioContext.getData(GET_REQUEST);
+        Response postResponse = (Response) scenarioContext.getData(RESPONSE_POST);
         log.info("Response time is : {}", getResponse.getTimeIn(MILLISECONDS));
         assertAll(
-                () -> assertThat(getResponse.jsonPath().get("id").toString(), is(equalTo(scenarioContext.getData(WISHLIST_ID.getMessage())))),
+                () -> assertThat(getResponse.jsonPath().get("wishlists").toString(), is(containsString(scenarioContext.getData(WISHLIST_ID).toString()))),
                 () -> assertEquals(getResponse.getStatusCode(), SC_OK, ASSERT_EQUALS.getMessage())
         );
     }
@@ -72,15 +69,15 @@ public class AbilityToLoginLogoutAPI extends RestApiSetUp {
                 .username(email)
                 .password(password)
                 .build();
-        scenarioContext.setData(RESPONSE_POST.getMessage(), postRequestLoginPath(userDTO));
-        Response response = (Response) scenarioContext.getData("response");
+        scenarioContext.setData(RESPONSE_POST, postRequestLoginPath(userDTO));
+        Response response = (Response) scenarioContext.getData(RESPONSE_POST);
         log.info("Response time is : {}", response.getTimeIn(MILLISECONDS));
     }
 
     @Then("user is rejected by the server due to wrong credentials")
     public void userIsRejectedByTheSystem() {
-        Response getResponse = (Response) scenarioContext.getData("get");
-        Response postResponse = (Response) scenarioContext.getData("response");
+        Response getResponse = (Response) scenarioContext.getData(GET_REQUEST);
+        Response postResponse = (Response) scenarioContext.getData(RESPONSE_POST);
         log.info("Response time is : {}", getResponse.getTimeIn(MILLISECONDS));
 
         assertEquals(postResponse.getStatusCode(), SC_UNAUTHORIZED, ASSERT_EQUALS.getMessage());
@@ -88,8 +85,8 @@ public class AbilityToLoginLogoutAPI extends RestApiSetUp {
 
     @Then("user gets error message displayed due to invalid data")
     public void userGetsErrorMessageDisplayedDueToUnexistingInvalidData() {
-        Response getResponse = (Response) scenarioContext.getData("get");
-        Response postResponse = (Response) scenarioContext.getData("response");
+        Response getResponse = (Response) scenarioContext.getData(GET_REQUEST);
+        Response postResponse = (Response) scenarioContext.getData(RESPONSE_POST);
         log.info("Response time is : {}", getResponse.getTimeIn(MILLISECONDS));
 
         assertEquals(postResponse.getStatusCode(), SC_BAD_REQUEST, ASSERT_EQUALS.getMessage());

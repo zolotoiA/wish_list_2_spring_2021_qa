@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class RestAccessingTheWebsite extends RestApiSetUp {
-    AccessTheWebsiteAction action = new AccessTheWebsiteAction();
+    private AccessTheWebsiteAction action = new AccessTheWebsiteAction();
 
     @Given("{} Request is submitted")
     public void requestIsSubmitted(String request) {
